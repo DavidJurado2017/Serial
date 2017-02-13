@@ -14,38 +14,23 @@
 //********** Includes *************************************************************
 
 //********** Variables ************************************************************
-int thisByte = 33; 
+int tempAigua = 101;
 //********** Setup ****************************************************************
 
-   
-void setup()    // run once, when the sketch starts
-{ 
-  Serial.begin(9600); 
-  Serial.println("ASCII Table ~ Character Map"); 
-} 
+void setup()              // run once, when the sketch starts
+{
+  Serial.begin(9600);     // set up Serial library at 9600 bps
 
-void loop()
-{ 
-  Serial.write(thisByte);    
-  
-  Serial.print(", dec: "); 
-  Serial.print(thisByte);      
-  Serial.print(", hex: "); 
-  Serial.print(thisByte, HEX);     
-  Serial.print(", oct: "); 
-  Serial.print(thisByte, OCT);     
-  Serial.print(", bin: "); 
-  Serial.println(thisByte, BIN);   
-
-  if(thisByte == 126)  // if printed last visible character '~'
-  { 
-    while(true)
-    { 
-    } 
+  if ( tempAigua > 100)
+  {
+    Serial.print("Aigua supera els 100C, esta bullint!");
   } 
-  thisByte++;     // go on to the next character
+}
 
-} 
+void loop()   // we need this to be here even though its empty
+{
+}
+
 
 
 
