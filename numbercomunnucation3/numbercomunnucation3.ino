@@ -14,13 +14,16 @@
 //********** Includes *************************************************************
 
 //********** Variables ************************************************************
-long num;
-
+const int ledPin = 13;
+int hores;
+float salari;
 //********** Setup ****************************************************************
 void setup() {
   // initialize serial:
   Serial.begin(9600);
-  Serial.println("Entrar un numero?");
+  Serial.println("Quantes hores de treball?");
+  // make the pins outputs:
+  pinMode(ledPin, OUTPUT); 
 }
 
 
@@ -30,24 +33,33 @@ void loop() {
   while (Serial.available() > 0) {
 
     // look for the next valid integer in the incoming serial stream:
-    num = Serial.parseInt(); 
-    Serial.print("El ");
-    Serial.print(num);
-    
+    hores = Serial.parseInt(); 
+
     // look for the newline. That's the end of your sentence:
-    if (Serial.read() == '\n') { 
+    if (Serial.read() == '\n') {
       
-      if ( num % 2 == 0){
-        Serial.println(" es parell.");
+      if (hores <= 37){
+        salari = hores * 20;
       }
       else{
-        Serial.println(" es imparell.");
+        salari = 37 * 20 + (hores - 37) * 30;
       }
+      if (salari <= 800){
+        salari = salari * 0.95;
+      }
+      else{
+        salari = salari * 0.9;
+      }
+      
+      Serial.print("El salari per ");
+      Serial.print(hores);
+      Serial.print(" hores treballades es de ");
+      Serial.print(salari);
+      Serial.println(" Euros.");
       Serial.println("");
-      Serial.println("Entrar un numero?");
+      Serial.println("Quantes hores de treball?");
     }
   }
 }
-
 //********** Funcions *************************************************************
 

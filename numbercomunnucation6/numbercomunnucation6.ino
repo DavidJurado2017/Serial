@@ -14,39 +14,51 @@
 //********** Includes *************************************************************
 
 //********** Variables ************************************************************
-long num;
-
+const int ledPin = 13;
+int num, nums;
+long suma;
+double mitja;
 //********** Setup ****************************************************************
 void setup() {
   // initialize serial:
   Serial.begin(9600);
-  Serial.println("Entrar un numero?");
+  Serial.print("Entrar numeros un a un (per acabar 0): ");
+  // make the pins outputs:
+  pinMode(ledPin, OUTPUT); 
 }
-
 
 //********** Loop *****************************************************************
 void loop() {
-  // if there's any serial available, read it:
-  while (Serial.available() > 0) {
-
-    // look for the next valid integer in the incoming serial stream:
-    num = Serial.parseInt(); 
-    Serial.print("El ");
-    Serial.print(num);
+  nums = 0;
+  num = 1;
+  do{
+    // if there's any serial available, read it:
+    while (Serial.available() > 0) {
+      // look for the next valid integer in the incoming serial stream:
+      num = Serial.parseInt(); 
+      Serial.print(num);
+      Serial.print(" - ");
     
-    // look for the newline. That's the end of your sentence:
-    if (Serial.read() == '\n') { 
-      
-      if ( num % 2 == 0){
-        Serial.println(" es parell.");
+      // look for the newline. That's the end of your sentence:
+      if (Serial.read() == '\n') { 
+          suma = suma + num;
+          nums++; 
       }
-      else{
-        Serial.println(" es imparell.");
-      }
-      Serial.println("");
-      Serial.println("Entrar un numero?");
     }
-  }
+  }while (num != 0);
+  nums--;
+  mitja = float(suma) / nums;
+    
+  Serial.println(""); 
+  Serial.print("S'han entrat ");
+  Serial.print(nums);
+  Serial.print(" numeros, la suma de tots ells es ");
+  Serial.print(suma);
+  Serial.print(" i la mitja ");
+  Serial.print(mitja);
+  Serial.println(".");
+  Serial.println("");
+  Serial.print("Entrar numeros un a un (per acabar 0): ");   
 }
 
 //********** Funcions *************************************************************
